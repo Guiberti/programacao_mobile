@@ -9,25 +9,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> _opcoes = ['pedra', 'papel', 'tesoura'];
-  late String _escolhaApp;
 
-  // Função para gerar a escolha do app aleatoriamente
   String _gerarEscolhaApp() {
     final random = Random();
     return _opcoes[random.nextInt(_opcoes.length)];
   }
 
-  // Função que navega para a página de resultados passando as escolhas
   void _navegarParaResultado(String escolhaUsuario) {
-    setState(() {
-      _escolhaApp = _gerarEscolhaApp(); // Gera a escolha do app toda vez que o usuário escolhe
-    });
-
+    final escolhaApp = _gerarEscolhaApp();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ResultadoPage(
-          escolhaApp: _escolhaApp, // Passa a escolha gerada para a página de resultado
+          escolhaApp: escolhaApp,
           escolhaUsuario: escolhaUsuario,
         ),
       ),
@@ -44,9 +38,6 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Exibe a escolha aleatória do app
-          Image.asset('assets/images/$_escolhaApp.png', height: 100),
-          const SizedBox(height: 10),
           const Text('Escolha do APP (Aleatório)',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
