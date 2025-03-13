@@ -29,23 +29,25 @@ class ResultadoPage extends StatelessWidget {
         title: const Text('Pedra, Papel, Tesoura'),
         backgroundColor: Colors.red,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Escolha do APP', style: TextStyle(fontSize: 20)),
-          Image.asset('assets/images/$escolhaApp.png', height: 100),
-          const SizedBox(height: 20),
-          const Text('Sua Escolha', style: TextStyle(fontSize: 20)),
-          Image.asset('assets/images/$escolhaUsuario.png', height: 100),
-          const SizedBox(height: 20),
-          Image.asset('assets/images/${_verificarResultado()}', height: 120),
-          const SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Jogar novamente'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Escolha do APP', style: TextStyle(fontSize: 20)),
+            Image.asset('assets/images/$escolhaApp.png', height: 100),
+            const SizedBox(height: 20),
+            const Text('Sua Escolha', style: TextStyle(fontSize: 20)),
+            Image.asset('assets/images/$escolhaUsuario.png', height: 100),
+            const SizedBox(height: 20),
+            Image.asset('assets/images/${_verificarResultado()}', height: 120),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text('Jogar novamente'),
+            ),
+          ],
+        ),
       ),
     );
   }

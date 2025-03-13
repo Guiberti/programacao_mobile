@@ -10,11 +10,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<String> _opcoes = ['pedra', 'papel', 'tesoura'];
 
-  String _gerarEscolhaApp() {
-    final random = Random();
-    return _opcoes[random.nextInt(_opcoes.length)];
-  }
-
   void _navegarParaResultado(String escolhaUsuario) {
     final escolhaApp = _gerarEscolhaApp();
     Navigator.push(
@@ -28,6 +23,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  String _gerarEscolhaApp() {
+    final random = Random();
+    return _opcoes[random.nextInt(_opcoes.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +38,8 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset('assets/images/padrao.png', height: 100),
+          const SizedBox(height: 20),
           const Text('Escolha do APP (Aleatório)',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
