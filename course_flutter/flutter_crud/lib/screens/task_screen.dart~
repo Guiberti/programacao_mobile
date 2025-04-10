@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import '/services/task_service.dart';
+
+class Task {
+  String id;
+  String title;
+  String description;
+
+  Task({required this.id, required this.title, required this.description});
+}
+
+class TaskScreen extends StatefulWidget {
+  const TaskScreen({super.key});
+
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  final TaskService _taskService = TaskService();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  void _showTaskDialog({Task? task, int? index}) {
+    if (task != null) {
+      _titleController.text = task.title;
+      _descriptionController.text = task.description;
+    } else {
+      _titleController.clear();
+      _descriptionController.clear();
+    }
+
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text(task == null ? 'Nova tarefa' : 'Editar tarefa'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(labelText: 'Título'),
+                ),
+                TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Descrição'),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (_titleController.text.isNotEmpty &&
+                      _descriptionController.text.isNotEmpty) {
+                    if (task == null) {
+                      _taskService.addTask(
+                        _titleController.text,
+                        _descriptionController.text,
+                      );
+                    } else if (index != null) {
+                      _taskService.updateTask(
+                        index,
+                        _titleController.text,
+                        _descriptionController.text,
+                      );
+                    }
+                    setState(() {});
+                    _titleController.clear();
+                    _descriptionController.clear();
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text(task == null ? 'Adicionar' : 'Salvar'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Lista de Tarefas')),
+      body:
+          _taskService.getTasks().isEmpty
+              ? const Center(child: Text('Nenhuma tarefa adicionada ainda!'))
+              : ListView.builder(
+                itemCount: _taskService.getTasks().length,
+                itemBuilder: (context, index) {
+                  final task = _taskService.getTasks()[index];
+                  return ListTile(
+                    title: Text(task.title),
+                    subtitle: Text(task.description),
+                    trailing: Row(
+                      mainAxisSize: MainAxisAlignment.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed:
+                              () => _showTaskDialog(task: task, index: index),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () {
+                            _taskService.deleteTask(index);
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showTaskDialog(),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
