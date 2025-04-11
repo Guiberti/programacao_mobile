@@ -9,9 +9,7 @@ class UserDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detalhes do Usuário'),
-      ),
+      appBar: AppBar(title: const Text('Detalhes do Usuário')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -21,13 +19,10 @@ class UserDetailScreen extends StatelessWidget {
               'Nome: ${user.name}',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Idade: ${user.age}',
-              style: const TextStyle(fontSize: 20),
-            ),
+            Text('Idade: ${user.age}', style: const TextStyle(fontSize: 20)),
           ],
         ),
       ),
-    )
+    );
   }
+}

@@ -1,7 +1,7 @@
 import 'package:prova_patrick/screens/user_screen.dart';
 
 class UserService {
-  static List<User> _users = [];
+  final List<User> _users = [];
 
   void addUser(String name, int age) {
     _users.add(User(name: name, age: age));

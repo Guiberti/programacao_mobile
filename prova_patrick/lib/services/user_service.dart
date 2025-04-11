@@ -4,7 +4,10 @@ class UserService {
   final List<User> _users = [];
 
   void addUser(String name, int age) {
-    _users.add(User(name: name, age: age));
+    _users.add(User(name: name,
+        age: age,
+    ),
+    );
   }
 
   List<User> getUsers() {
