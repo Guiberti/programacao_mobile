@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+
+class User {
+  String name;
+  int age;
+
+  User({required this.name, required this.age});
+}
+
+class RegisterUser extends StatelessWidget {
+  const RegisterUser({super.key});
+
+  @override
+  _RegisterUserState createState() => _RegisterUserState();
+}
+
+
+class _RegisterUserState extends State<RegisterUser> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+
+  void showUserDialog({User? user, int? index}) {
+    if (user != null) {
+      _nameController.text = user.name;
+      _ageController.text = user.age.toString();
+    } else {
+      _nameController.clear();
+      _ageController.clear();
+    }
+
+    showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+                title: Text(user == null ? 'Novo usuário' : 'Editar usuário'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Nome'),
+                    ),
+                    TextField(
+                      controller: _ageController,
+                      decoration: const InputDecoration(labelText: 'Idade'),
+                    ),
+                  ],
+                ),
+                actions: [
+                TextButton(onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar'),
+                ),
+                TextButton(onPressed: () {
+                  if (_nameController.text.isNotEmpty && _ageController.text.isNotEmpty) {
+                    try {
+                      final age = int.parse(_ageController.text);
+                      if (user == null) {
+                        _
+    }
+    }
+                  }
+    },
+                child: child)
+
+                ]
+
+
+  }
+
+
+
